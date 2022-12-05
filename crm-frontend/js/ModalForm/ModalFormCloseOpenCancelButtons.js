@@ -6,7 +6,9 @@ const formContainer = document.querySelector('.form-container');
 
 // закрываем форму при клике на фон
 formBg.addEventListener('click', (event) => {
-  document.location.search = '';
+  if (event.target === formBg) {
+    document.location.search = '';
+  }
 })
 
 export function openModal() {
