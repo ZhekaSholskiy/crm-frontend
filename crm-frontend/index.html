@@ -10,23 +10,34 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/drop-down-list.css">
-  <script type="module" src="./js/main.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script type="module" src="./js/TableBody/TableBodyLoadAndUpdating.js"></script>
   <script type="module" src="./js/requests.js"></script>
-  <script type="module" src="./js/DOM.js"></script>
-  <script type="module" src="./js/transform.js"></script>
-  <script type="module" src="./js/interactions.js"></script>
-  <script type="module" src="./js/contactsEvents.js"></script>
-  <script type="module" src="./js/enteringContactAria.js"></script>
-  <script type="module" src="./js/formNavigation.js"></script>
-  <script type="module" src="./js/dataPreProcessing.js"></script>
-  <script type="module" src="./js/typesToImages.js"></script>
+  <script type="module" src="./js/TableBody/TableBodyCreateTr.js"></script>
+  <script type="module" src="./js/dateTransform.js"></script>
+  <script type="module" src="./js/ModalForm/ModalFormAddNewContact.js"></script>
+  <script type="module" src="./js/ModalForm/formNavigation.js"></script>
+  <script type="module" src="./js/ModalForm/ModalFormCreatingClientRequest.js"></script>
+  <script type="module" src="./js/TableBody/TableBodyContactsAndTips.js"></script>
+  <script type="module" src="./js/SearchInputFiltration.js"></script>
+  <script type="module" src="./js/sorting.js"></script>
+  <script type="module" src="./js/ModalForm/ModalFormContactsRemovingCross.js"></script>
+  <script type="module" src="./js/ModalForm/ModalFormContactsDropdown.js"></script>
+  <script type="module" src="./js/ModalForm/ModalFormContacts.js"></script>
+  <script type="module" src="./js/ModalForm/TransformAddClientModalToChangeClient.js"></script>
+  <script type="module" src="./js/TableBody/TableBodyChangeClientBtn.js"></script>
+  <script type="module" src="./js/TableBody/TableBodyDeleteClientBtn.js"></script>
+  <script type="module" src="./js/AddClientBtn.js"></script>
+  <script type="module" src="./js/ModalForm/ModalFormCreatingClientRequestError.js"></script>
+  <script type="module" src="./js/routing.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <div class="header__container">
         <div class="header__logo">
-          <img src="./img/logo.svg" alt="Логотип Skillbus">
+          <img class="header__logo-img" src="./img/logo.svg" alt="Логотип Skillbus">
         </div>
         <div class="header__search search">
           <input class="search__input" type="text" name="" id="" placeholder="Введите запрос">
@@ -38,34 +49,50 @@
         <h1 class="clients-table__title">
           Клиенты
         </h1>
-        <table class="table">
-          <thead class="thead">
-            <th>
-              ID
-            </th>
-            <th>
-              Фамилия Имя Отчество
-            </th>
-            <th>
-              Дата и время создания
-            </th>
-            <th>
-              Последние изменения
-            </th>
-            <th>
-              Контакты
-            </th>
-            <th>
-              Действия
-            </th>
-            <div class="one-img-container">
-            <svg class="hint-example" width="500" height="38" viewBox="0 0 500 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path id="hint" fill-rule="evenodd" clip-rule="evenodd" d="M0 0H500V31H253.28L249.4012 37.276L245.44 31H0V0Z" fill="#333333"/>
-              </svg>
-            </div>
-          </thead>
-          <tbody class="tbody"></tbody>
-        </table>
+          <table class="table">
+            <thead class="thead">
+              <th class="th-ID th" data-head="th-ID" data-direction="none" data-clicked="false">
+                ID
+                                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.49691e-07 4L0.705 4.705L3.5 1.915L3.5 8L4.5 8L4.5 1.915L7.29 4.71L8 4L4 -3.49691e-07L3.49691e-07 4Z" fill="#9873FF"/>
+                  </svg>
+              </th>
+              <th class="th-full-name th" data-head="th-full-name" data-direction="none" data-clicked="false">
+                Фамилия Имя Отчество
+                                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.49691e-07 4L0.705 4.705L3.5 1.915L3.5 8L4.5 8L4.5 1.915L7.29 4.71L8 4L4 -3.49691e-07L3.49691e-07 4Z" fill="#9873FF"/>
+                  </svg>
+              </th>
+              <th class="th-date th" data-head="th-create" data-direction="none" data-clicked="false">
+                Дата и время создания
+                                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.49691e-07 4L0.705 4.705L3.5 1.915L3.5 8L4.5 8L4.5 1.915L7.29 4.71L8 4L4 -3.49691e-07L3.49691e-07 4Z" fill="#9873FF"/>
+                  </svg>
+              </th>
+              <th class="th-date th" data-head="th-update" data-direction="none" data-clicked="false">
+                Последние изменения
+                                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.49691e-07 4L0.705 4.705L3.5 1.915L3.5 8L4.5 8L4.5 1.915L7.29 4.71L8 4L4 -3.49691e-07L3.49691e-07 4Z" fill="#9873FF"/>
+                  </svg>
+              </th>
+              <th class="th-contacts">
+                Контакты
+              </th>
+              <th class="th-actions">
+                Действия
+              </th>
+              <div class="one-img-container">
+              <svg class="hint-example" width="500" height="38" viewBox="0 0 500 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="hint" fill-rule="evenodd" clip-rule="evenodd" d="M0 0H500V31H253.28L249.4012 37.276L245.44 31H0V0Z" fill="#333333"/>
+                </svg>
+              </div>
+            </thead>
+            <tbody class="tbody">
+              <svg class="loading" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 20C2 29.941 10.059 38 20 38C29.941 38 38 29.941 38 20C38 10.059 29.941 2 20 2C17.6755 2 15.454 2.4405 13.414 3.243" stroke="#9873FF" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round"/>
+                </svg>
+            </tbody>
+          </table>
         <div class="clients-table__footer">
           <button class="clients-table__btn btn">
             <svg class="btn__image" width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,7 +153,15 @@
             </div>
             </div>
             <div class="add-contact__bg added-contacts-bg">
-              <button class="add-contact">Добавить контакт</button>
+              <button class="add-contact">
+                <svg class="common-add-contact" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.99998 3.66659C6.63331 3.66659 6.33331 3.96659 6.33331 4.33325V6.33325H4.33331C3.96665 6.33325 3.66665 6.63325 3.66665 6.99992C3.66665 7.36659 3.96665 7.66659 4.33331 7.66659H6.33331V9.66659C6.33331 10.0333 6.63331 10.3333 6.99998 10.3333C7.36665 10.3333 7.66665 10.0333 7.66665 9.66659V7.66659H9.66665C10.0333 7.66659 10.3333 7.36659 10.3333 6.99992C10.3333 6.63325 10.0333 6.33325 9.66665 6.33325H7.66665V4.33325C7.66665 3.96659 7.36665 3.66659 6.99998 3.66659ZM6.99998 0.333252C3.31998 0.333252 0.333313 3.31992 0.333313 6.99992C0.333313 10.6799 3.31998 13.6666 6.99998 13.6666C10.68 13.6666 13.6666 10.6799 13.6666 6.99992C13.6666 3.31992 10.68 0.333252 6.99998 0.333252ZM6.99998 12.3333C4.05998 12.3333 1.66665 9.93992 1.66665 6.99992C1.66665 4.05992 4.05998 1.66659 6.99998 1.66659C9.93998 1.66659 12.3333 4.05992 12.3333 6.99992C12.3333 9.93992 9.93998 12.3333 6.99998 12.3333Z" fill="#9873FF"/>
+                  </svg>
+                <svg class="hover-add-contact" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.333313 7.00016C0.333313 3.32016 3.31998 0.333496 6.99998 0.333496C10.68 0.333496 13.6666 3.32016 13.6666 7.00016C13.6666 10.6802 10.68 13.6668 6.99998 13.6668C3.31998 13.6668 0.333313 10.6802 0.333313 7.00016ZM6.33329 4.33366C6.33329 3.96699 6.63329 3.66699 6.99996 3.66699C7.36663 3.66699 7.66663 3.96699 7.66663 4.33366V6.33366H9.66663C10.0333 6.33366 10.3333 6.63366 10.3333 7.00033C10.3333 7.36699 10.0333 7.66699 9.66663 7.66699H7.66663V9.66699C7.66663 10.0337 7.36663 10.3337 6.99996 10.3337C6.63329 10.3337 6.33329 10.0337 6.33329 9.66699V7.66699H4.33329C3.96663 7.66699 3.66663 7.36699 3.66663 7.00033C3.66663 6.63366 3.96663 6.33366 4.33329 6.33366H6.33329V4.33366Z" fill="#9873FF"/>
+                  </svg>
+                Добавить контакт
+              </button>
             </div>
             <button class="btn btn-primary save-btn add-client-btn">Сохранить</button>
             <button class="cancel-btn">Отмена</button>

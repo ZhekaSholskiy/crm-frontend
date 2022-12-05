@@ -22,7 +22,7 @@ function createDdListString(ddListContent, ddListId, ddListTextContent) {
 }
 
 // ф-я создает строку с вводом контакта
-export function addEnterContactAria(listTitle = 'Телефон', contactValue = '') {
+export function addNewContact(listTitle = 'Телефон', contactValue = '') {
   const contactContainer = document.createElement('div');
   contactContainer.classList.add('added-contacts-container');
   contactsContainer.append(contactContainer);
@@ -44,11 +44,8 @@ export function addEnterContactAria(listTitle = 'Телефон', contactValue =
       ddListContent.classList.add('dd-list__content');
       ddList.append(ddListContent);
 
-        createDdListString(ddListContent, 'dd-list__input1', 'Телефон');
-        createDdListString(ddListContent, 'dd-list__input2', 'Доп. телефон');
-        createDdListString(ddListContent, 'dd-list__input3', 'Email');
-        createDdListString(ddListContent, 'dd-list__input4', 'Vk');
-        createDdListString(ddListContent, 'dd-list__input5', 'Facebook');
+        ['Телефон', 'Доп. телефон', 'Email', 'Vk', 'Facebook']
+        .map((el, index) => createDdListString(ddListContent, `dd-list__input${index+1}`, el));
 
     const contactsInput = document.createElement('input');
     contactsInput.classList.add("form-control", "contacts-input");

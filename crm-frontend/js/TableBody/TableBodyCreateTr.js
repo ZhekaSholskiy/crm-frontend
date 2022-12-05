@@ -1,0 +1,73 @@
+import { tbody } from './TableBodyLoadAndUpdating.js';
+import { contactConversion } from './TableBodyContactsAndTips.js';
+
+// эта функция берет данные для каждой ячейки и отрисовывает строку в таблице с этими данными
+export function createTr(id, lastName, surname, name, dateCreation, timeCreation, updatingDate, updatingTime, contacts) {
+  const tr = document.createElement('tr');
+  tbody.append(tr);
+
+  const th = document.createElement('th');
+  th.classList.add('th-ID', 'th-href');
+  tr.append(th);
+  th.textContent = id;
+
+  const fullNameTd = document.createElement('td');
+  fullNameTd.classList.add('th-full-name');
+  fullNameTd.textContent = lastName + ' ' + name + ' ' + surname;
+  tr.append(fullNameTd);
+  const createTimeTd = document.createElement('td');
+  createTimeTd.classList.add('th-date');
+  tr.append(createTimeTd);
+  const createDate = document.createElement('span');
+  const createTime = document.createElement('span');
+  const createDateWrapper = document.createElement('div');
+  const updateDateWrapper = document.createElement('div');
+  createDate.classList.add('date-transform');
+  createTime.classList.add('time-transform');
+  createDate.textContent = dateCreation;
+  createTime.textContent = timeCreation;
+  createTimeTd.append(createDateWrapper);
+  createDateWrapper.append(createDate);
+  createDateWrapper.append(createTime);
+  const updateTimeTd = document.createElement('td');
+  updateTimeTd.classList.add('th-date');
+  tr.append(updateTimeTd);
+  const updateDate = document.createElement('span');
+  const updateTime = document.createElement('span');
+  updateDate.classList.add('date-transform');
+  updateTime.classList.add('time-transform');
+  updateDate.textContent = updatingDate;
+  updateTime.textContent = updatingTime;
+  updateTimeTd.append(updateDateWrapper);
+  updateDateWrapper.append(updateDate);
+  updateDateWrapper.append(updateTime);
+  const contactsTd = document.createElement('td');
+  contactsTd.classList.add('th-contacts');
+  contactConversion(contacts, contactsTd);
+  tr.append(contactsTd);
+  const btnContainer = document.createElement('td');
+  btnContainer.classList.add('th-actions');
+  const btnWrapper = document.createElement('div');
+  btnContainer.append(btnWrapper);
+  btnWrapper.classList.add('btn-container');
+  const changeBtn = document.createElement('button');
+  const changeBtnImg = document.createElement('span');
+  const changeBtnImgWaiting = document.createElement('span');
+  changeBtn.classList.add('change-btn');
+  changeBtn.textContent = 'Изменить';
+  changeBtn.prepend(changeBtnImg);
+  changeBtn.prepend(changeBtnImgWaiting);
+  changeBtnImgWaiting.classList.add('change-btn-waiting');
+  changeBtnImg.classList.add('change-btn-standart');
+  const deleteBtn = document.createElement('button');
+  deleteBtn.classList.add('delete-btn');
+  deleteBtn.textContent = 'Удалить';
+  const deleteBtnImg = document.createElement('span');
+  deleteBtnImg.classList.add('delete-btn-img');
+  deleteBtn.append(deleteBtnImg);
+  btnWrapper.append(changeBtn);
+  btnWrapper.append(deleteBtn);
+  tr.append(btnContainer);
+  createDate.parentNode.classList.add('dateStyle');
+  updateDate.parentNode.classList.add('dateStyle');
+}

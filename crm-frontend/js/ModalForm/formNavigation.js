@@ -1,11 +1,6 @@
 //навигация по форме через Enter
-
-const addContactBtn = document.querySelector('.add-contact');
-
-let contactsInputList = document.querySelectorAll('.contacts-input');
-
-function updateContactsList() {
-  contactsInputList = document.querySelectorAll('.contacts-input');
+export function updateContactsList() {
+  let contactsInputList = document.querySelectorAll('.contacts-input');
   contactsInputList.forEach(el => el.addEventListener('keydown', (e) => {
     if (e.code === 'Enter') {
       e.preventDefault();
@@ -14,8 +9,6 @@ function updateContactsList() {
   }))
   contactsInputList[contactsInputList.length - 1].focus();
 }
-
-addContactBtn.addEventListener('click', updateContactsList);
 
 const fullNameInputList = document.querySelectorAll('.mb-3');
 fullNameInputList.forEach(el => {
