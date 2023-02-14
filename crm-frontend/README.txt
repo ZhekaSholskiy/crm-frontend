@@ -1,5 +1,3 @@
-Здравствуйте!
+To start an appplication, copy crm-backend on your computer and start it by command node index.js in command line.
 
-Из дополнительных заданий реализовано:
-- Анимация появления модального окна
-- Роутинг по id клинета (также при наведении на ID клиента в таблице предлагается скопировать ссылку по клику)
+Play crm-frontend.mp4 to see how it works.
